@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2024年陕西省高考录取结果查询</title>
+  <style>
+    table {
+      border: 2px solid #0C3055;
+      border-collapse: collapse;
+      width: 70%;
+      margin: 0 auto;
+      font-size: 14px;
+      margin-top: 100px;
+    }
+
+    td {
+      width: 50%;
+      border: #0C3055 1px solid;
+    }
+
+    td:nth-child(1) {
+      text-align: center;
+      background-color: #EEF5FB;
+    }
+
+    #title {
+      background-color: #E9E9E9;
+    }
+
+    /* 弹窗背景 */
+    .modal {
+      display: block;
+      /* 默认隐藏 */
+      position: fixed;
+      /* 固定定位 */
+      z-index: 1;
+      /* 位于顶层 */
+      left: 0;
+      top: 0;
+      width: 100%;
+      /* 宽度100% */
+      height: 100%;
+      /* 高度100% */
+      overflow: auto;
+      /* 如果内容超出高度，则出现滚动条 */
+      background-color: rgb(0, 0, 0);
+      /* 背景颜色 */
+      background-color: rgba(0, 0, 0, 0.4);
+      /* 带有透明度的黑色背景 */
+    }
+
+    /* 弹窗内容 */
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      /* 15% 从顶部，水平居中 */
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      /* 弹窗宽度 */
+    }
+
+    /* 关闭按钮 */
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .sure {
+      display: block;
+      width: 100%;
+      line-height: 24px;
+    }
+
+    .box {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .box div {
+      flex: 1;
+      text-align: right;
+      padding-right: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <table>
+    <tr>
+      <td colspan="2" id="title">2024年陕西高考录取结果查询</td>
+    </tr>
+    <tr>
+      <td>准考证号</td>
+      <td id="id"></td>
+    </tr>
+    <tr>
+      <td>姓名</td>
+      <td id="name"></td>
+    </tr>
+    <tr>
+      <td>录取批次</td>
+      <td>本科一批</td>
+    </tr>
+    <tr>
+      <td>录取院校</td>
+      <td id="school"></td>
+    </tr>
+    <tr>
+      <td>录取专业</td>
+      <td id="major"></td>
+    </tr>
+
+  </table>
+
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <div class="box">
+        <div>准考证号：</div>
+        <input type="text" id="idInput">
+      </div>
+      <div class="box">
+        <div>姓名：</div>
+        <input type="text" id="nameInput">
+      </div>
+      <div class="box">
+        <div>录取院校：</div>
+        <input type="text" id="schoolInput">
+      </div>
+      <div class="box">
+        <div>录取专业：</div>
+        <input type="text" id="majorInput">
+      </div>
+      <button class="sure">确定</button>
+    </div>
+  </div>
+
+  <script>
+    if (localStorage.getItem("info")) {
+      let info = JSON.parse(localStorage.getItem("info"))
+      console.log(info);
+
+      document.getElementById("idInput").value = info.id
+      document.getElementById("nameInput").value = info.name
+    }
+
+    document.querySelector(".sure").addEventListener('click', function() {
+      let id = document.getElementById('id')
+      let name = document.getElementById('name')
+      let school = document.getElementById('school')
+      let major = document.getElementById('major')
+      let idInput = document.getElementById("idInput")
+      let nameInput = document.getElementById("nameInput")
+      let schoolInput = document.getElementById("schoolInput")
+      let majorInput = document.getElementById("majorInput")
+
+
+      id.innerHTML = idInput.value
+      name.innerHTML = nameInput.value
+      school.innerHTML = schoolInput.value
+      major.innerHTML = majorInput.value
+
+      let obj = {
+        id: idInput.value,
+        name: nameInput.value
+      }
+
+      localStorage.setItem("info", JSON.stringify(obj))
+
+      document.getElementById("myModal").style.display = "none"
+    })
+  </script>
+</body>
+
+</html>
